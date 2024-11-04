@@ -46,8 +46,13 @@ def t_error(t):
 lexer = lex.lex()
 
 def p_collection_declaration(p):
-    'statement : ID EQUAL expression'
-    p[0] = (p[1], p[3])  
+    '''statement : ID EQUAL expression
+                 | expression'''
+    # p[0] = (p[1], p[3])  
+    if len(p) == 4:  
+        p[0] = (p[1], p[3])
+    else:  
+        p[0] = p[1]
 
 def p_expression_type(p):
     '''expression : LBRACKET list_values RBRACKET

@@ -1,0 +1,405 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> ID EQUAL expression
+Rule 2     statement -> expression
+Rule 3     expression -> LBRACKET list_values RBRACKET
+Rule 4     expression -> LPAREN tuple_values RPAREN
+Rule 5     expression -> LBRACE dict_items RBRACE
+Rule 6     expression -> NUMBER
+Rule 7     expression -> STRING
+Rule 8     list_values -> expression
+Rule 9     list_values -> list_values COMMA expression
+Rule 10    tuple_values -> expression
+Rule 11    tuple_values -> tuple_values COMMA expression
+Rule 12    dict_items -> dict_item
+Rule 13    dict_items -> dict_items COMMA dict_item
+Rule 14    dict_item -> STRING COLON expression
+Rule 15    dict_item -> NUMBER COLON expression
+
+Terminals, with rules where they appear
+
+COLON                : 14 15
+COMMA                : 9 11 13
+EQUAL                : 1
+ID                   : 1
+LBRACE               : 5
+LBRACKET             : 3
+LPAREN               : 4
+NUMBER               : 6 15
+RBRACE               : 5
+RBRACKET             : 3
+RPAREN               : 4
+STRING               : 7 14
+error                : 
+
+Nonterminals, with rules where they appear
+
+dict_item            : 12 13
+dict_items           : 5 13
+expression           : 1 2 8 9 10 11 14 15
+list_values          : 3 9
+statement            : 0
+tuple_values         : 4 11
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . ID EQUAL expression
+    (2) statement -> . expression
+    (3) expression -> . LBRACKET list_values RBRACKET
+    (4) expression -> . LPAREN tuple_values RPAREN
+    (5) expression -> . LBRACE dict_items RBRACE
+    (6) expression -> . NUMBER
+    (7) expression -> . STRING
+
+    ID              shift and go to state 2
+    LBRACKET        shift and go to state 4
+    LPAREN          shift and go to state 5
+    LBRACE          shift and go to state 6
+    NUMBER          shift and go to state 7
+    STRING          shift and go to state 8
+
+    statement                      shift and go to state 1
+    expression                     shift and go to state 3
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> ID . EQUAL expression
+
+    EQUAL           shift and go to state 9
+
+
+state 3
+
+    (2) statement -> expression .
+
+    $end            reduce using rule 2 (statement -> expression .)
+
+
+state 4
+
+    (3) expression -> LBRACKET . list_values RBRACKET
+    (8) list_values -> . expression
+    (9) list_values -> . list_values COMMA expression
+    (3) expression -> . LBRACKET list_values RBRACKET
+    (4) expression -> . LPAREN tuple_values RPAREN
+    (5) expression -> . LBRACE dict_items RBRACE
+    (6) expression -> . NUMBER
+    (7) expression -> . STRING
+
+    LBRACKET        shift and go to state 4
+    LPAREN          shift and go to state 5
+    LBRACE          shift and go to state 6
+    NUMBER          shift and go to state 7
+    STRING          shift and go to state 8
+
+    list_values                    shift and go to state 10
+    expression                     shift and go to state 11
+
+state 5
+
+    (4) expression -> LPAREN . tuple_values RPAREN
+    (10) tuple_values -> . expression
+    (11) tuple_values -> . tuple_values COMMA expression
+    (3) expression -> . LBRACKET list_values RBRACKET
+    (4) expression -> . LPAREN tuple_values RPAREN
+    (5) expression -> . LBRACE dict_items RBRACE
+    (6) expression -> . NUMBER
+    (7) expression -> . STRING
+
+    LBRACKET        shift and go to state 4
+    LPAREN          shift and go to state 5
+    LBRACE          shift and go to state 6
+    NUMBER          shift and go to state 7
+    STRING          shift and go to state 8
+
+    tuple_values                   shift and go to state 12
+    expression                     shift and go to state 13
+
+state 6
+
+    (5) expression -> LBRACE . dict_items RBRACE
+    (12) dict_items -> . dict_item
+    (13) dict_items -> . dict_items COMMA dict_item
+    (14) dict_item -> . STRING COLON expression
+    (15) dict_item -> . NUMBER COLON expression
+
+    STRING          shift and go to state 16
+    NUMBER          shift and go to state 17
+
+    dict_items                     shift and go to state 14
+    dict_item                      shift and go to state 15
+
+state 7
+
+    (6) expression -> NUMBER .
+
+    $end            reduce using rule 6 (expression -> NUMBER .)
+    RBRACKET        reduce using rule 6 (expression -> NUMBER .)
+    COMMA           reduce using rule 6 (expression -> NUMBER .)
+    RPAREN          reduce using rule 6 (expression -> NUMBER .)
+    RBRACE          reduce using rule 6 (expression -> NUMBER .)
+
+
+state 8
+
+    (7) expression -> STRING .
+
+    $end            reduce using rule 7 (expression -> STRING .)
+    RBRACKET        reduce using rule 7 (expression -> STRING .)
+    COMMA           reduce using rule 7 (expression -> STRING .)
+    RPAREN          reduce using rule 7 (expression -> STRING .)
+    RBRACE          reduce using rule 7 (expression -> STRING .)
+
+
+state 9
+
+    (1) statement -> ID EQUAL . expression
+    (3) expression -> . LBRACKET list_values RBRACKET
+    (4) expression -> . LPAREN tuple_values RPAREN
+    (5) expression -> . LBRACE dict_items RBRACE
+    (6) expression -> . NUMBER
+    (7) expression -> . STRING
+
+    LBRACKET        shift and go to state 4
+    LPAREN          shift and go to state 5
+    LBRACE          shift and go to state 6
+    NUMBER          shift and go to state 7
+    STRING          shift and go to state 8
+
+    expression                     shift and go to state 18
+
+state 10
+
+    (3) expression -> LBRACKET list_values . RBRACKET
+    (9) list_values -> list_values . COMMA expression
+
+    RBRACKET        shift and go to state 19
+    COMMA           shift and go to state 20
+
+
+state 11
+
+    (8) list_values -> expression .
+
+    RBRACKET        reduce using rule 8 (list_values -> expression .)
+    COMMA           reduce using rule 8 (list_values -> expression .)
+
+
+state 12
+
+    (4) expression -> LPAREN tuple_values . RPAREN
+    (11) tuple_values -> tuple_values . COMMA expression
+
+    RPAREN          shift and go to state 21
+    COMMA           shift and go to state 22
+
+
+state 13
+
+    (10) tuple_values -> expression .
+
+    RPAREN          reduce using rule 10 (tuple_values -> expression .)
+    COMMA           reduce using rule 10 (tuple_values -> expression .)
+
+
+state 14
+
+    (5) expression -> LBRACE dict_items . RBRACE
+    (13) dict_items -> dict_items . COMMA dict_item
+
+    RBRACE          shift and go to state 23
+    COMMA           shift and go to state 24
+
+
+state 15
+
+    (12) dict_items -> dict_item .
+
+    RBRACE          reduce using rule 12 (dict_items -> dict_item .)
+    COMMA           reduce using rule 12 (dict_items -> dict_item .)
+
+
+state 16
+
+    (14) dict_item -> STRING . COLON expression
+
+    COLON           shift and go to state 25
+
+
+state 17
+
+    (15) dict_item -> NUMBER . COLON expression
+
+    COLON           shift and go to state 26
+
+
+state 18
+
+    (1) statement -> ID EQUAL expression .
+
+    $end            reduce using rule 1 (statement -> ID EQUAL expression .)
+
+
+state 19
+
+    (3) expression -> LBRACKET list_values RBRACKET .
+
+    $end            reduce using rule 3 (expression -> LBRACKET list_values RBRACKET .)
+    RBRACKET        reduce using rule 3 (expression -> LBRACKET list_values RBRACKET .)
+    COMMA           reduce using rule 3 (expression -> LBRACKET list_values RBRACKET .)
+    RPAREN          reduce using rule 3 (expression -> LBRACKET list_values RBRACKET .)
+    RBRACE          reduce using rule 3 (expression -> LBRACKET list_values RBRACKET .)
+
+
+state 20
+
+    (9) list_values -> list_values COMMA . expression
+    (3) expression -> . LBRACKET list_values RBRACKET
+    (4) expression -> . LPAREN tuple_values RPAREN
+    (5) expression -> . LBRACE dict_items RBRACE
+    (6) expression -> . NUMBER
+    (7) expression -> . STRING
+
+    LBRACKET        shift and go to state 4
+    LPAREN          shift and go to state 5
+    LBRACE          shift and go to state 6
+    NUMBER          shift and go to state 7
+    STRING          shift and go to state 8
+
+    expression                     shift and go to state 27
+
+state 21
+
+    (4) expression -> LPAREN tuple_values RPAREN .
+
+    $end            reduce using rule 4 (expression -> LPAREN tuple_values RPAREN .)
+    RBRACKET        reduce using rule 4 (expression -> LPAREN tuple_values RPAREN .)
+    COMMA           reduce using rule 4 (expression -> LPAREN tuple_values RPAREN .)
+    RPAREN          reduce using rule 4 (expression -> LPAREN tuple_values RPAREN .)
+    RBRACE          reduce using rule 4 (expression -> LPAREN tuple_values RPAREN .)
+
+
+state 22
+
+    (11) tuple_values -> tuple_values COMMA . expression
+    (3) expression -> . LBRACKET list_values RBRACKET
+    (4) expression -> . LPAREN tuple_values RPAREN
+    (5) expression -> . LBRACE dict_items RBRACE
+    (6) expression -> . NUMBER
+    (7) expression -> . STRING
+
+    LBRACKET        shift and go to state 4
+    LPAREN          shift and go to state 5
+    LBRACE          shift and go to state 6
+    NUMBER          shift and go to state 7
+    STRING          shift and go to state 8
+
+    expression                     shift and go to state 28
+
+state 23
+
+    (5) expression -> LBRACE dict_items RBRACE .
+
+    $end            reduce using rule 5 (expression -> LBRACE dict_items RBRACE .)
+    RBRACKET        reduce using rule 5 (expression -> LBRACE dict_items RBRACE .)
+    COMMA           reduce using rule 5 (expression -> LBRACE dict_items RBRACE .)
+    RPAREN          reduce using rule 5 (expression -> LBRACE dict_items RBRACE .)
+    RBRACE          reduce using rule 5 (expression -> LBRACE dict_items RBRACE .)
+
+
+state 24
+
+    (13) dict_items -> dict_items COMMA . dict_item
+    (14) dict_item -> . STRING COLON expression
+    (15) dict_item -> . NUMBER COLON expression
+
+    STRING          shift and go to state 16
+    NUMBER          shift and go to state 17
+
+    dict_item                      shift and go to state 29
+
+state 25
+
+    (14) dict_item -> STRING COLON . expression
+    (3) expression -> . LBRACKET list_values RBRACKET
+    (4) expression -> . LPAREN tuple_values RPAREN
+    (5) expression -> . LBRACE dict_items RBRACE
+    (6) expression -> . NUMBER
+    (7) expression -> . STRING
+
+    LBRACKET        shift and go to state 4
+    LPAREN          shift and go to state 5
+    LBRACE          shift and go to state 6
+    NUMBER          shift and go to state 7
+    STRING          shift and go to state 8
+
+    expression                     shift and go to state 30
+
+state 26
+
+    (15) dict_item -> NUMBER COLON . expression
+    (3) expression -> . LBRACKET list_values RBRACKET
+    (4) expression -> . LPAREN tuple_values RPAREN
+    (5) expression -> . LBRACE dict_items RBRACE
+    (6) expression -> . NUMBER
+    (7) expression -> . STRING
+
+    LBRACKET        shift and go to state 4
+    LPAREN          shift and go to state 5
+    LBRACE          shift and go to state 6
+    NUMBER          shift and go to state 7
+    STRING          shift and go to state 8
+
+    expression                     shift and go to state 31
+
+state 27
+
+    (9) list_values -> list_values COMMA expression .
+
+    RBRACKET        reduce using rule 9 (list_values -> list_values COMMA expression .)
+    COMMA           reduce using rule 9 (list_values -> list_values COMMA expression .)
+
+
+state 28
+
+    (11) tuple_values -> tuple_values COMMA expression .
+
+    RPAREN          reduce using rule 11 (tuple_values -> tuple_values COMMA expression .)
+    COMMA           reduce using rule 11 (tuple_values -> tuple_values COMMA expression .)
+
+
+state 29
+
+    (13) dict_items -> dict_items COMMA dict_item .
+
+    RBRACE          reduce using rule 13 (dict_items -> dict_items COMMA dict_item .)
+    COMMA           reduce using rule 13 (dict_items -> dict_items COMMA dict_item .)
+
+
+state 30
+
+    (14) dict_item -> STRING COLON expression .
+
+    RBRACE          reduce using rule 14 (dict_item -> STRING COLON expression .)
+    COMMA           reduce using rule 14 (dict_item -> STRING COLON expression .)
+
+
+state 31
+
+    (15) dict_item -> NUMBER COLON expression .
+
+    RBRACE          reduce using rule 15 (dict_item -> NUMBER COLON expression .)
+    COMMA           reduce using rule 15 (dict_item -> NUMBER COLON expression .)
+
