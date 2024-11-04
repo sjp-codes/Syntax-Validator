@@ -6,7 +6,7 @@ import ply.yacc as yacc
 # num = 10
 # str = "name"
 
-tokens = ('ID','STRING','EQUAL','NUMBER','TRUE','FALSE')
+tokens = ('ID', 'STRING', 'EQUAL', 'NUMBER', 'TRUE', 'FALSE')
 
 t_ID = r'[a-zA-Z_][a-zA-Z0-9_]*'
 t_STRING = r'\".*?\"|\'[^\']*\''
@@ -29,19 +29,23 @@ lexer = lex.lex()
 
 def p_variable_declaration(p):
     'statement : ID EQUAL expression'
+    p[0] = (p[1], p[3])  
 
 def p_expression_value(p):
     '''expression : NUMBER
                   | STRING
                   | TRUE
                   | FALSE'''
+    if len(p) == 2:
+        p[0] = p[1]  
 
 def p_error(p):
-    print("Syntax error")
+    print("Syntax error at '%s'" % (p.value if p else "EOF"))
     global err
     err = 1
 
 parser = yacc.yacc()
+
 while True:
     err = 0
     try:
@@ -50,7 +54,6 @@ while True:
         break
     
     if not s: 
-        err = 0
         print("You entered nothing, try again!")
         continue
     
@@ -60,6 +63,8 @@ while True:
 
     result = parser.parse(s)
 
-    # If there are no syntax errors, print valid syntax
     if err == 0:
         print("Valid syntax")
+        print(f"Parsed result: {result}")
+    else:
+        print("Syntax error")
