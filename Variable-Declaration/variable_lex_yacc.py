@@ -4,13 +4,14 @@ import ply.yacc as yacc
 # Simple Variable Declaration in Python
 # variable_name = value 
 # num = 10
+# str = "name"
 
 tokens = ('ID','STRING','EQUAL','NUMBER','TRUE','FALSE')
 
 t_ID = r'[a-zA-Z_][a-zA-Z0-9_]*'
+t_STRING = r'\".*?\"|\'[^\']*\''
 t_EQUAL = r'='
 t_NUMBER = r'\d+'
-t_STRING = r'\".*?\"|\'[^\']*\''
 t_TRUE = r'true'
 t_FALSE = r'false'
 

@@ -1,6 +1,5 @@
 import ply.lex as lex
 
-# Define tokens
 tokens = ('ID', 'LAMBDA', 'COLON', 'COMMA', 'MINUS', 'PLUS', 'MULTIPLY', 'DIVIDE', 'EQUAL', 'NUMBER', 'LPAREN', 'RPAREN')
 
 t_ignore = ' \t'
@@ -30,8 +29,6 @@ def t_error(t):
     t.lexer.skip(1)
 
 lexer = lex.lex()
-
-# Main input loop
 
 while True:
     try:
