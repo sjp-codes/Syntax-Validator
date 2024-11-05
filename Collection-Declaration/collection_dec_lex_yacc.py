@@ -1,9 +1,14 @@
 import ply.lex as lex
 import ply.yacc as yacc
 
+# PYTHON SYNTAX FOR COLLECTION DECLARATION/ INBUILT DATATYPES
+
 # list_variable = [list_values]
+# l1 =[1,2,3]
 # tuple_variable = (tuple_values)
+# t = ('hello','world')
 # dict_variable = {key:value}
+# dict = {1 : 'key1'}
 
 tokens = (
     'ID',
@@ -96,28 +101,30 @@ def p_dict_item(p):
     p[0] = (key, p[3])  
 
 def p_error(p):
-    print("Syntax error at '%s'" % p)
+    if p:
+        print(f"Syntax error at '{p.value}'")
+    else:
+        print("Syntax error at EOF")
 
 parser = yacc.yacc()
 
 while True:
     try:
         s = input('Enter the variable declaration statement or enter 0 to leave: ')
+        if not s:
+            print("You entered nothing, try again!")
+            continue
+        
+        if s == '0':
+            print("Exiting program")
+            break
+        
+        result = parser.parse(s)
+        if result is not None:
+            print("\nValid syntax")
+            print(f"Parsed result: {result}")
+        else:
+            print("\nInvalid syntax")
+            
     except EOFError:
         break
-    
-    if not s:
-        print("You entered nothing, try again!")
-        continue
-    
-    if s == '0':
-        print("Exiting program")
-        break
-
-    result = parser.parse(s)
-
-    if result is not None:
-        print("Valid syntax")
-        print(f"Parsed result: {result}")
-    else:
-        print("Syntax error")

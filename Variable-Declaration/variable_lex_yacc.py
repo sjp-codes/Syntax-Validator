@@ -1,7 +1,8 @@
 import ply.lex as lex
 import ply.yacc as yacc
 
-# Simple Variable Declaration in Python
+# PYTHON SYNTAX FOR VARIABLE DECLARATION
+
 # variable_name = value 
 # num = 10
 # str = "name"
@@ -40,31 +41,31 @@ def p_expression_value(p):
         p[0] = p[1]  
 
 def p_error(p):
-    print("Syntax error at '%s'" % (p.value if p else "EOF"))
-    global err
-    err = 1
+    if p:
+        print(f"Syntax error at '{p.value}'")
+    else:
+        print("Syntax error at EOF")
 
+# Build the parser
 parser = yacc.yacc()
 
 while True:
-    err = 0
     try:
         s = input('Enter the variable declaration statement or enter 0 to leave: ')
+        if not s:
+            print("You entered nothing, try again!")
+            continue
+        
+        if s == '0':
+            print("Exiting program")
+            break
+        
+        result = parser.parse(s)
+        if result is not None:
+            print("\nValid syntax")
+            print(f"Parsed result: {result}")
+        else:
+            print("\nInvalid syntax")
+            
     except EOFError:
         break
-    
-    if not s: 
-        print("You entered nothing, try again!")
-        continue
-    
-    if s == '0':
-        print("Exiting program")
-        break
-
-    result = parser.parse(s)
-
-    if err == 0:
-        print("Valid syntax")
-        print(f"Parsed result: {result}")
-    else:
-        print("Syntax error")
