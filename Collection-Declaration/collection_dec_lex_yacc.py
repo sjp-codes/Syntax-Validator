@@ -10,6 +10,7 @@ import ply.yacc as yacc
 # dict_variable = {key:value}
 # dict = {1 : 'key1'}
 
+# LEXER
 tokens = (
     'ID',
     'NUMBER',
@@ -50,6 +51,7 @@ def t_error(t):
 
 lexer = lex.lex()
 
+# PARSER
 def p_collection_declaration(p):
     '''statement : ID EQUAL expression
                  | expression'''

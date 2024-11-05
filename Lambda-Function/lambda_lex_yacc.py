@@ -7,6 +7,7 @@ import ply.yacc as yacc
 # x = lambda a, b : a * b
 # y = lambda a: a + 1
 
+# LEXER
 tokens = (
     'ID',
     'LAMBDA', 
@@ -58,7 +59,7 @@ def t_error(t):
 
 lexer = lex.lex()
 
-# Grammar rules
+# PARSER
 def p_statement(p):
     '''statement : assignment
                 | lambda_func'''

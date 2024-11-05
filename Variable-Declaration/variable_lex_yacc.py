@@ -7,6 +7,7 @@ import ply.yacc as yacc
 # num = 10
 # str = "name"
 
+# LEXER
 tokens = ('ID', 'STRING', 'EQUAL', 'NUMBER', 'TRUE', 'FALSE')
 
 t_ID = r'[a-zA-Z_][a-zA-Z0-9_]*'
@@ -28,6 +29,7 @@ def t_error(t):
 
 lexer = lex.lex()
 
+# PARSER
 def p_variable_declaration(p):
     'statement : ID EQUAL expression'
     p[0] = (p[1], p[3])  
@@ -46,7 +48,6 @@ def p_error(p):
     else:
         print("Syntax error at EOF")
 
-# Build the parser
 parser = yacc.yacc()
 
 while True:
