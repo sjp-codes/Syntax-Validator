@@ -3,5 +3,5 @@ A Syntax Validator for the Python programming language using PLY for 3rd Sem AFL
 
 ## PYTHON CONSTRUCTS
 - Lambda Funtction
-- Collection declaration(list, tuple, set, dictionary)
+- Collection declaration(list, tuple, dictionary)
 - Simple variable declaration
