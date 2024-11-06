@@ -2,7 +2,7 @@ import ply.lex as lex
 import ply.yacc as yacc
 
 
-#ternary expression
+# PYTHON SYNTAX FOR TERNARY OPERATOR
 # syntax: result = true_value if condition else false_value
 
 # example: 10 if 1 else 20 
@@ -40,7 +40,7 @@ def p_expression_ternary(p):
     condition = p[3]
     true_value = p[1]
     false_value = p[5]
-#ternary evaluatino
+    
     p[0] = true_value if condition else false_value
 
 def p_expression_number(p):
