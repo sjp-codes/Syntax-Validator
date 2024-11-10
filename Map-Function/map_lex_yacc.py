@@ -1,7 +1,12 @@
 import ply.lex as lex
 import ply.yacc as yacc
 
-#this is our lexer 
+# PYTHON SYNTAX FOR LAMBDA FUNCTION
+# variable = map(function, iterable)
+# cube = map(cube_of_num, 4)
+# map(sq_root,81)
+
+# LEXER
 tokens = (
     'MAP',
     'LPAREN',
@@ -33,7 +38,7 @@ def t_error(t):
 
 lexer = lex.lex()
 
-#this is our parser
+# PARSER
 def p_statement(p):
     '''statement : assignment
                 | map_expression'''
@@ -53,9 +58,9 @@ def p_error(p):
     else:
         print("Syntax error at EOF")
 
+
 parser = yacc.yacc()
 
-#for user input
 while True:
     try:
         data = input("Enter a statement (or 'exit' to quit): ")
