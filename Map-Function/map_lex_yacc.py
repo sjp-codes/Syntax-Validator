@@ -119,8 +119,10 @@ def p_factor(p):
         p[0] = p[2]
 
 def p_iterable(p):
-    '''iterable : LEFT_BRACKET elements RIGHT_BRACKET'''
-    p[0] = p[2]
+    '''iterable : LEFT_BRACKET elements RIGHT_BRACKET
+                | IDENTIFIER
+                | NUMBER'''
+    p[0] = p[1] if len(p) == 2 else p[2]
 
 def p_elements(p):
     '''elements : element
